@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "890264360182",
+    "project_id": "vchat-1416c",
+    "storage_bucket": "vchat-1416c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890264360182:android:88ec48d19fb9bd114608d7",
+        "android_client_info": {
+          "package_name": "com.vikas.vchat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKFv8qCsZIjziDxFqKtfkzcqmf6bsQfkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
