@@ -12,7 +12,20 @@
           "package_name": "com.vikas.vchat"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "890264360182-cpi73652crc00g05matvv8e55alcebjv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.vchat",
+            "certificate_hash": "f91be7321678a15b2441a5d7de1045deede0af08"
+          }
+        },
+        {
+          "client_id": "890264360182-6sk0mousmngja304qhnu03gvt474cuuv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDKFv8qCsZIjziDxFqKtfkzcqmf6bsQfkI"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890264360182-6sk0mousmngja304qhnu03gvt474cuuv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
