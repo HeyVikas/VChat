@@ -15,7 +15,6 @@ import com.vikas.vchat.R
 import com.vikas.vchat.ui.theme.Gradient
 
 
-@Preview
 @Composable
 fun SplashScreen() {
     Box (modifier = Modifier.fillMaxSize()
