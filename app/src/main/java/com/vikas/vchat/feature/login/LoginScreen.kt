@@ -23,39 +23,50 @@ import com.vikas.vchat.ui.Screen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavHostController) {
-    Scaffold (
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Welcome to VChat" )},
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = Color.White
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun LoginScreen() {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text(text = "Welcome to VChat") },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        titleContentColor = Color.White
+                    )
+
                 )
-
-            )
-        }
-    ){ paddingValues ->
-
-                val context = LocalContext.current
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            contentAlignment = Alignment.Center
-    ){
-            SignInWithGoogleButton(
-                onSuccess = { user ->
-                    val email = user.email ?: error("Email not found")
-                    Toast.makeText(context, "Signed-in as $email", Toast.LENGTH_SHORT).show()
-                    navController.navigate(Screen.EditProfile(email).route)
-                },
-                onError = { error ->
-                    Toast.makeText(context, "Error: ${error?.message}", Toast.LENGTH_SHORT).show()
-                }
-            )
-
-                
             }
+        ) { paddingValues ->
+
+            val context = LocalContext.current
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                contentAlignment = Alignment.Center
+            ) {
+                SignInWithGoogleButton(
+                    onSuccess = { user ->
+                        val email = user.email ?: error("Email not found")
+                        Toast.makeText(context, "Signed-in as $email", Toast.LENGTH_SHORT).show()
+                        navController.navigate(Screen.EditProfile(email).route)
+                    },
+                    onError = { error ->
+                        Toast.makeText(context, "Error: ${error?.message}", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                )
+                SignInWithGoogleButton(onSuccess = { User ->
+                    Toast.makeText(context, "Signed-in as ${User.email}", Toast.LENGTH_SHORT).show()
+                },
+                    onError = { error ->
+                        Toast.makeText(context, "Error : ${error?.message}", Toast.LENGTH_SHORT)
+                            .show()
+                    })
+
+            }
+        }
     }
-    }
+}
