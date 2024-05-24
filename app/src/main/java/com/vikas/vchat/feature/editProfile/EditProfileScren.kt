@@ -71,7 +71,7 @@ fun EditProfileScreen(
                 modifier = Modifier.fillMaxWidth(),
                 value = name,
                 onValueChange = {
-                    it -> name = it
+                    name = it
                     nameError = it.isBlank() },
                 label = { Text(text = "Name")} ,
                 isError = nameError,

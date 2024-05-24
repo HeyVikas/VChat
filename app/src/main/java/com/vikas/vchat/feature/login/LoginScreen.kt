@@ -21,11 +21,8 @@ import com.vikas.vchat.ui.Screen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun LoginScreen(navController: NavHostController) {
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun LoginScreen() {
+    fun LoginScreen(navController: NavHostController) {
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -58,15 +55,6 @@ fun LoginScreen(navController: NavHostController) {
                             .show()
                     }
                 )
-                SignInWithGoogleButton(onSuccess = { User ->
-                    Toast.makeText(context, "Signed-in as ${User.email}", Toast.LENGTH_SHORT).show()
-                },
-                    onError = { error ->
-                        Toast.makeText(context, "Error : ${error?.message}", Toast.LENGTH_SHORT)
-                            .show()
-                    })
-
             }
         }
     }
-}

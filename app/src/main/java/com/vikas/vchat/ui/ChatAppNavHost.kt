@@ -37,9 +37,7 @@ fun ChatAppNavHost() {
             )
         ) {
             val email = it.arguments?.getString("email") ?: error("Email Argument not passed")
-            EditProfileScreen(
-                email
-            )
+            EditProfileScreen(email)
         }
     }
 }
