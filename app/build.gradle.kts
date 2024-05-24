@@ -50,6 +50,12 @@ android {
     }
 }
 
+configurations {
+    "implementation" {
+        exclude("org.jetbrains.compose.material", "material-desktop")
+    }
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -67,8 +73,12 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     implementation(libs.firebase.ui.auth)
     implementation(libs.firebase.auth.ktx)
+
+    //DroidLibs
+    implementation(libs.droidlibs.compose.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
