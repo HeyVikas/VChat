@@ -27,7 +27,8 @@ fun ChatAppNavHost() {
         }
         composable(Screen.Login.route) {
             LoginScreen(
-                navController
+                navController,
+                koinViewModel()
             )
         }
         composable(

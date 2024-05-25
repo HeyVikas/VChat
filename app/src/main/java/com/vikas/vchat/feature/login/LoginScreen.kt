@@ -15,46 +15,48 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import com.vikas.vchat.ui.Screen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    fun LoginScreen(navController: NavHostController) {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text(text = "Welcome to VChat") },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        titleContentColor = Color.White
-                    )
+@Composable
+fun LoginScreen(
+    navController: NavHostController,
+    viewModel: LoginViewModel
+) {
 
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Welcome to VChat") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = Color.White
                 )
-            }
-        ) { paddingValues ->
 
-            val context = LocalContext.current
+            )
+        }
+    ) { paddingValues ->
 
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
-                contentAlignment = Alignment.Center
-            ) {
-                SignInWithGoogleButton(
-                    onSuccess = { user ->
-                        val email = user.email ?: error("Email not found")
-                        Toast.makeText(context, "Signed-in as $email", Toast.LENGTH_SHORT).show()
-                        navController.navigate(Screen.EditProfile(email).route)
-                    },
-                    onError = { error ->
-                        Toast.makeText(context, "Error: ${error?.message}", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                )
-            }
+        val context = LocalContext.current
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            contentAlignment = Alignment.Center
+        ) {
+            SignInWithGoogleButton(
+                onSuccess = { user ->
+                    val email = user.email ?: error("Email not found")
+                   viewModel.onLoggedIn(email, navController)
+                },
+                onError = { error ->
+                    Toast.makeText(context, "Error: ${error?.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            )
         }
     }
+}

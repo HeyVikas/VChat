@@ -44,7 +44,7 @@ import kotlinx.coroutines.launch
 fun EditProfileScreen(
     viewModel: EditProfileViewModel,
     email: String,
-    navController: NavHostController
+    navController: NavHostController,
 ) {
 
     val snackbarHostState = remember { SnackbarHostState() }
