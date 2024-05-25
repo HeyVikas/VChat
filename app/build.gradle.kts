@@ -67,9 +67,12 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.datastore.core)
+    implementation(libs.gson)
+    implementation(libs.koin.android)
 
 
-    // Firebase
+    // Firebase3
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
