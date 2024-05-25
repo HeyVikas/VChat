@@ -66,10 +66,15 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.material.icon.extended)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.datastore.core)
     implementation(libs.gson)
     implementation(libs.koin.android)
+
+    //coil
+    implementation(libs.coil.compose)
+
 
 
     // Firebase3
@@ -82,6 +87,7 @@ dependencies {
 
     //DroidLibs
     implementation(libs.droidlibs.compose.android)
+    implementation(libs.droidlibs.pickers)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -34,8 +34,16 @@ import com.streamliners.compose.comp.textInput.config.text
 import com.streamliners.compose.comp.textInput.state.TextInputState
 import com.streamliners.compose.comp.textInput.state.allHaveValidInputs
 import com.streamliners.compose.comp.textInput.state.value
+import com.streamliners.pickers.media.FromGalleryType
+import com.streamliners.pickers.media.MediaPickerDialog
+import com.streamliners.pickers.media.MediaPickerDialogState
+import com.streamliners.pickers.media.MediaType
+import com.streamliners.pickers.media.PickedMedia
+import com.streamliners.pickers.media.rememberMediaPickerDialogState
 import com.vikas.vchat.domain.Gender
 import com.vikas.vchat.domain.User
+import com.vikas.vchat.feature.editProfile.comp.AddImageButton
+import com.vikas.vchat.feature.editProfile.comp.ProfileImage
 import com.vikas.vchat.ui.Screen
 import kotlinx.coroutines.launch
 
@@ -47,6 +55,7 @@ fun EditProfileScreen(
     navController: NavHostController,
 ) {
 
+    val mediaPickerDialogeState = rememberMediaPickerDialogState()
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
@@ -67,6 +76,10 @@ fun EditProfileScreen(
         }
 
     ) { paddingValues ->
+
+        val image = remember {
+            mutableStateOf<PickedMedia?>(null)
+        }
 
         val nameInput = remember {
             mutableStateOf(
@@ -93,6 +106,7 @@ fun EditProfileScreen(
 
 
         val gender = remember { mutableStateOf<Gender?>(null) }
+
         var genderError by remember { mutableStateOf(false) }
 
         LaunchedEffect(key1 = gender.value) {
@@ -108,6 +122,37 @@ fun EditProfileScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
+
+            val initImagePicker = {
+                mediaPickerDialogeState.value = MediaPickerDialogState.Visible(
+                    type = MediaType.Image,
+                    allowMultiple = false,
+                    fromGalleryType = FromGalleryType.VisualMediaPicker
+                ) { getList ->
+
+                    scope.launch {
+                        val list = getList()
+                        list.firstOrNull()?.let {
+                            image.value = it
+                        }
+                    }
+                }
+            }
+
+            image.value?.let {
+                ProfileImage(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally),
+                    pickedMedia = it,
+                    onClick = initImagePicker
+                )
+            } ?: run {
+                AddImageButton(
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    onClick = initImagePicker
+                )
+            }
+
             TextInputLayout(state = nameInput)
 
             OutlinedTextField(
@@ -135,15 +180,17 @@ fun EditProfileScreen(
                         options = Gender.entries.toList(),
                         labelExtractor = { it.name }
                     )
-                    if (genderError){
+                    if (genderError) {
                         Text(text = "Required")
                     }
                 }
             }
+
+
             Button(
                 modifier = Modifier
-                    .padding(top = 12.dp)
-                    .align(Alignment.CenterHorizontally),
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 12.dp),
                 onClick = {
                     if (
                         TextInputState.allHaveValidInputs(
@@ -166,7 +213,7 @@ fun EditProfileScreen(
                             }
                         }
                     }
-                    if (gender.value == null){
+                    if (gender.value == null) {
                         genderError = true
                     }
                 }
@@ -175,5 +222,9 @@ fun EditProfileScreen(
             }
         }
     }
-}
 
+        MediaPickerDialog(
+            state = mediaPickerDialogeState,
+            authority = "com.vikas.vchat.fileprovider"
+        )
+    }
