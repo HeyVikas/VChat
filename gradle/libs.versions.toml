@@ -27,9 +27,12 @@ androidx-datastore-core = { module = "androidx.datastore:datastore-preferences-c
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 droidlibs-compose-android = { module = "com.github.The-Streamliners.DroidLibs:compose-android", version.ref = "droidlibs" }
 droidlibs-pickers = { module = "com.github.The-Streamliners.DroidLibs:pickers", version.ref = "droidlibs" }
+droidlibs-base = { module = "com.github.The-Streamliners.DroidLibs:base", version.ref = "droidlibs" }
+droidlibs-utils = { module = "com.github.The-Streamliners.DroidLibs:utils", version.ref = "droidlibs" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
+firebase-storage = { module = "com.google.firebase:firebase-storage" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-ui-auth = { module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuth" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }

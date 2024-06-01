@@ -11,12 +11,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.streamliners.base.BaseActivity
 import com.vikas.vchat.feature.editProfile.EditProfileScreen
 import com.vikas.vchat.feature.splash.SplashScreen
 import com.vikas.vchat.ui.ChatAppNavHost
 import com.vikas.vchat.ui.theme.VChatTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity : BaseActivity() {
+
+    override var buildType: String = BuildConfig.BUILD_TYPE
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

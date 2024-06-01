@@ -39,6 +39,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -82,12 +83,15 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
     implementation(libs.firebase.ui.auth)
     implementation(libs.firebase.auth.ktx)
 
     //DroidLibs
     implementation(libs.droidlibs.compose.android)
     implementation(libs.droidlibs.pickers)
+    implementation(libs.droidlibs.base)
+    implementation(libs.droidlibs.utils)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
