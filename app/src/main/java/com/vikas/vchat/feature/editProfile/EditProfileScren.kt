@@ -35,6 +35,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.streamliners.base.taskState.comp.TaskLoadingButton
+import com.streamliners.base.taskState.comp.whenError
 import com.streamliners.compose.comp.select.RadioGroup
 import com.streamliners.compose.comp.textInput.TextInputLayout
 import com.streamliners.compose.comp.textInput.config.InputConfig
@@ -128,8 +130,6 @@ fun EditProfileScreen(
         var genderError by remember { mutableStateOf(false) }
 
         var dob = remember { mutableStateOf<String?>(null) }
-
-        var isLoading by remember { mutableStateOf(false) }
 
 
         LaunchedEffect(key1 = gender.value) {
@@ -233,10 +233,12 @@ fun EditProfileScreen(
             )
 
 
-            Button(
+            TaskLoadingButton(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 12.dp),
+                state = viewModel.saveProfileTask,
+                label = "Save",
                 onClick = {
                     if (
                         TextInputState.allHaveValidInputs(
@@ -252,23 +254,15 @@ fun EditProfileScreen(
                                 gender = it,
                                 dob = dob.value
                             )
-                            isLoading = true
                             viewModel.saveUser(
                                 user = user,
                                 image = image.value,
                                 onSuccess = {
-                                    isLoading = false
                                     scope.launch {
                                         snackbarHostState.showSnackbar("Registration Successful")
                                     }
 
                                     navController.navigate(Screen.Home.route)
-                                },
-                                onError = {
-                                    isLoading = false
-                                    scope.launch {
-                                        snackbarHostState.showSnackbar(it)
-                                    }
                                 }
                             )
                         }
@@ -276,26 +270,13 @@ fun EditProfileScreen(
                     if (gender.value == null) {
                         genderError = true
                     }
-                },
-                enabled = !isLoading
-            ) {
-                Box (
-                    contentAlignment = Alignment.Center
-                ){
-                    Text(
-                        modifier = Modifier.visible(!isLoading),
-                        text = "Save",
-                        style = MaterialTheme.typography.bodyLarge)
-
-                    if (isLoading){
-
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(24.dp),
-                            strokeWidth = 2.dp)
-
-                    }
                 }
+            )
+
+            viewModel.saveProfileTask.whenError {
+                Text(text = "Error : $it")
             }
+
         }
     }
 

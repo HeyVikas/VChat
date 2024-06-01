@@ -3,6 +3,9 @@ package com.vikas.vchat.feature.editProfile
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.streamliners.base.BaseViewModel
+import com.streamliners.base.ext.execute
+import com.streamliners.base.taskState.taskStateOf
 import com.streamliners.pickers.media.PickedMedia
 import com.vikas.vchat.data.LocalRepo
 import com.vikas.vchat.data.UserRepo
@@ -16,21 +19,16 @@ class EditProfileViewModel @Inject constructor(
     private val userRepo: UserRepo,
     private val localRepo: LocalRepo,
     private val storageRepo: StorageRepo
-) : ViewModel() {
+) : BaseViewModel() {
+
+    val saveProfileTask = taskStateOf<Unit>()
     fun saveUser(
         user: User,
         image: PickedMedia?,
         onSuccess: () -> Unit,
-        onError: (String) -> Unit
     )
-
     {
-
-        val exceptionHandler = CoroutineExceptionHandler { _, error ->
-                    error.message ?: "Unknown error"
-        }
-
-        viewModelScope.launch (exceptionHandler){
+        execute(saveProfileTask){
 
             val updateUser = user.copy(
                 profileImageUrl = uploadProfileImage(user.email, image)
@@ -39,8 +37,8 @@ class EditProfileViewModel @Inject constructor(
             userRepo.saveUser(user = updateUser)
             localRepo.onLoggedIn()
             onSuccess()
-        }
 
+        }
     }
 
     private suspend fun uploadProfileImage(email: String, image: PickedMedia?): String? {

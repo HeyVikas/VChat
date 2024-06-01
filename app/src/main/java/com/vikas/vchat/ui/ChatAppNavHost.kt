@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.streamliners.base.ext.koinBaseViewModel
 import com.streamliners.pickers.date.showDatePickerDialog
 import com.vikas.vchat.MainActivity
 import com.vikas.vchat.feature.editProfile.EditProfileScreen
@@ -44,7 +45,7 @@ fun MainActivity.ChatAppNavHost() {
             val email = it.arguments?.getString("email") ?: error("Email Argument not passed")
             EditProfileScreen(
                 navController = navController,
-                viewModel = koinViewModel(),
+                viewModel = koinBaseViewModel(),
                 email = email,
                 showDatePicker = ::showDatePickerDialog
             )

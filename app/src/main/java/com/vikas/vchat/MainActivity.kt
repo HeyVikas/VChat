@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.streamliners.base.BaseActivity
+import com.streamliners.base.uiEvent.UiEventDialogs
 import com.vikas.vchat.feature.editProfile.EditProfileScreen
 import com.vikas.vchat.feature.splash.SplashScreen
 import com.vikas.vchat.ui.ChatAppNavHost
@@ -32,6 +33,7 @@ class MainActivity : BaseActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                   ChatAppNavHost()
+                    UiEventDialogs()
 //                  EditProfileScreen(email = "namastelalwani@gmail.com")
                 }
             }
