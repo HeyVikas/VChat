@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.streamliners.base.BaseViewModel
 import com.streamliners.base.ext.execute
+import com.streamliners.base.ext.executeOnMain
 import com.streamliners.base.taskState.load
 import com.streamliners.base.taskState.taskStateOf
 import com.streamliners.pickers.media.PickedMedia
@@ -37,7 +38,7 @@ class EditProfileViewModel @Inject constructor(
 
                 userRepo.saveUser(user = updateUser)
                 localRepo.onLoggedIn()
-                onSuccess()
+                 executeOnMain {  onSuccess() }
             }
         }
     }
