@@ -273,10 +273,6 @@ fun EditProfileScreen(
                 }
             )
 
-            viewModel.saveProfileTask.whenError {
-                Text(text = "Error : $it")
-            }
-
         }
     }
 

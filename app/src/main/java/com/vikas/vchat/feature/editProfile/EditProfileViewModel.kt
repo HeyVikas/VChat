@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.streamliners.base.BaseViewModel
 import com.streamliners.base.ext.execute
+import com.streamliners.base.taskState.load
 import com.streamliners.base.taskState.taskStateOf
 import com.streamliners.pickers.media.PickedMedia
 import com.vikas.vchat.data.LocalRepo
@@ -28,16 +29,16 @@ class EditProfileViewModel @Inject constructor(
         onSuccess: () -> Unit,
     )
     {
-        execute(saveProfileTask){
+        execute(showLoadingDialog = false){
+            saveProfileTask.load {
+                val updateUser = user.copy(
+                    profileImageUrl = uploadProfileImage(user.email, image)
+                )
 
-            val updateUser = user.copy(
-                profileImageUrl = uploadProfileImage(user.email, image)
-            )
-
-            userRepo.saveUser(user = updateUser)
-            localRepo.onLoggedIn()
-            onSuccess()
-
+                userRepo.saveUser(user = updateUser)
+                localRepo.onLoggedIn()
+                onSuccess()
+            }
         }
     }
 
