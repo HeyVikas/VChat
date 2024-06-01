@@ -8,6 +8,7 @@ import com.vikas.vchat.data.LocalRepo
 import com.vikas.vchat.data.UserRepo
 import com.vikas.vchat.data.remote.StorageRepo
 import com.vikas.vchat.domain.User
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,9 +20,17 @@ class EditProfileViewModel @Inject constructor(
     fun saveUser(
         user: User,
         image: PickedMedia?,
-        onSuccess: () -> Unit
-    ){
-        viewModelScope.launch {
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    )
+
+    {
+
+        val exceptionHandler = CoroutineExceptionHandler { _, error ->
+                    error.message ?: "Unknown error"
+        }
+
+        viewModelScope.launch (exceptionHandler){
 
             val updateUser = user.copy(
                 profileImageUrl = uploadProfileImage(user.email, image)

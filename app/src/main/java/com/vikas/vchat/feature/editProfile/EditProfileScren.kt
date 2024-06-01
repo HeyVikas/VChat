@@ -2,14 +2,17 @@ package com.vikas.vchat.feature.editProfile
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -52,6 +55,7 @@ import com.vikas.vchat.domain.Gender
 import com.vikas.vchat.domain.User
 import com.vikas.vchat.feature.editProfile.comp.AddImageButton
 import com.vikas.vchat.feature.editProfile.comp.ProfileImage
+import com.vikas.vchat.helper.visible
 import com.vikas.vchat.ui.Screen
 import kotlinx.coroutines.launch
 
@@ -124,6 +128,9 @@ fun EditProfileScreen(
         var genderError by remember { mutableStateOf(false) }
 
         var dob = remember { mutableStateOf<String?>(null) }
+
+        var isLoading by remember { mutableStateOf(false) }
+
 
         LaunchedEffect(key1 = gender.value) {
             if (gender.value != null) genderError = false
@@ -206,7 +213,8 @@ fun EditProfileScreen(
             // TODO: Make Date Compulsory
 
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .clickable {
                         showDatePicker(
                             DatePickerDialog.Params(
@@ -244,21 +252,49 @@ fun EditProfileScreen(
                                 gender = it,
                                 dob = dob.value
                             )
-                            viewModel.saveUser(user, image.value) {
-                                scope.launch {
-                                    snackbarHostState.showSnackbar("Registration Successful")
-                                }
+                            isLoading = true
+                            viewModel.saveUser(
+                                user = user,
+                                image = image.value,
+                                onSuccess = {
+                                    isLoading = false
+                                    scope.launch {
+                                        snackbarHostState.showSnackbar("Registration Successful")
+                                    }
 
-                                navController.navigate(Screen.Home.route)
-                            }
+                                    navController.navigate(Screen.Home.route)
+                                },
+                                onError = {
+                                    isLoading = false
+                                    scope.launch {
+                                        snackbarHostState.showSnackbar(it)
+                                    }
+                                }
+                            )
                         }
                     }
                     if (gender.value == null) {
                         genderError = true
                     }
-                }
+                },
+                enabled = !isLoading
             ) {
-                Text(text = "Save")
+                Box (
+                    contentAlignment = Alignment.Center
+                ){
+                    Text(
+                        modifier = Modifier.visible(!isLoading),
+                        text = "Save",
+                        style = MaterialTheme.typography.bodyLarge)
+
+                    if (isLoading){
+
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(24.dp),
+                            strokeWidth = 2.dp)
+
+                    }
+                }
             }
         }
     }
