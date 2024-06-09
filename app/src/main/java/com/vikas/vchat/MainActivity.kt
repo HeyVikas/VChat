@@ -15,6 +15,7 @@ import com.streamliners.base.BaseActivity
 import com.streamliners.base.uiEvent.UiEventDialogs
 import com.vikas.vchat.feature.editProfile.EditProfileScreen
 import com.vikas.vchat.feature.splash.SplashScreen
+import com.vikas.vchat.temp.Scripts
 import com.vikas.vchat.ui.ChatAppNavHost
 import com.vikas.vchat.ui.theme.VChatTheme
 
@@ -37,6 +38,14 @@ class MainActivity : BaseActivity() {
 //                  EditProfileScreen(email = "namastelalwani@gmail.com")
                 }
             }
+        }
+
+//       runScript()
+    }
+
+    private fun runScript() {
+        execute {
+            Scripts.saveDummyUser()
         }
     }
 }

@@ -9,9 +9,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.streamliners.pickers.media.PickedMedia
+import com.vikas.vchat.ui.comp.general.AsyncImage
 
 @Composable
 fun ProfileImage(
@@ -20,13 +20,12 @@ fun ProfileImage(
     modifier: Modifier
 ) {
 
-    AsyncImage(model = ImageRequest.Builder(LocalContext.current)
-            .data(pickedMedia.uri)
-            .crossfade(true)
-            .build(), contentDescription = "", contentScale = ContentScale.FillBounds,
+    AsyncImage(
+        uri = pickedMedia.uri,
         modifier = modifier
             .size(100.dp)
             .clip(CircleShape)
-            .clickable { onClick() })
+            .clickable { onClick() }
+    )
     
 }

@@ -6,6 +6,7 @@ import com.vikas.vchat.data.UserRepo
 import com.vikas.vchat.data.remote.StorageRepo
 import com.vikas.vchat.feature.editProfile.EditProfileViewModel
 import com.vikas.vchat.feature.login.LoginViewModel
+import com.vikas.vchat.feature.newChat.NewChatViewModel
 import com.vikas.vchat.feature.splash.SplashViewModel
 import com.vikas.vchat.ui.Screen
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,4 +21,5 @@ val viewModelModule = module {
     viewModel { EditProfileViewModel(get(), get(), get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
+    viewModel { NewChatViewModel(get(), get()) }
 }

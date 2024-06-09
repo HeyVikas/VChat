@@ -23,7 +23,7 @@ class LoginViewModel @Inject constructor(
             val user = userRepo.getUserWithEmail(email)
             if (user != null) {
                 // Save in local & navigate to home screen
-                localRepo.onLoggedIn()
+                localRepo.onLoggedIn(user)
                 navController.navigate(Screen.Home.route)
             }
             else{

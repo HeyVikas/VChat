@@ -37,7 +37,7 @@ class EditProfileViewModel @Inject constructor(
                 )
 
                 userRepo.saveUser(user = updateUser)
-                localRepo.onLoggedIn()
+                localRepo.onLoggedIn(updateUser)
                  executeOnMain {  onSuccess() }
             }
         }

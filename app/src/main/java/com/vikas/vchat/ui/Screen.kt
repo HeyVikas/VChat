@@ -7,6 +7,7 @@ sealed class Screen(
     data object Login : Screen("Login")
 
     data object Home : Screen("Home")
+    data object NewChat : Screen("NewChat")
 
     class EditProfile(
         email: String

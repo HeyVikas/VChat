@@ -12,6 +12,7 @@ import com.vikas.vchat.MainActivity
 import com.vikas.vchat.feature.editProfile.EditProfileScreen
 import com.vikas.vchat.feature.home.HomeScreen
 import com.vikas.vchat.feature.login.LoginScreen
+import com.vikas.vchat.feature.newChat.NewChatScreen
 import com.vikas.vchat.feature.splash.SplashScreen
 import org.koin.androidx.compose.koinViewModel
 
@@ -51,7 +52,13 @@ fun MainActivity.ChatAppNavHost() {
             )
         }
         composable(Screen.Home.route){
-            HomeScreen()
+            HomeScreen(navController)
+        }
+        composable(Screen.NewChat.route){
+            NewChatScreen(
+                viewModel = koinBaseViewModel(),
+                navController = navController
+            )
         }
     }
 }
